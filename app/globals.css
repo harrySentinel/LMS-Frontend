@@ -66,6 +66,9 @@ body {
   animation: shake 0.5s ease-in-out;
 }
 
+/* added for the otp box animation */
+
+
 @keyframes shake {
   0%, 100% {
     transform: translateX(0);
