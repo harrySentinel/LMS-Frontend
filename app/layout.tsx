@@ -33,12 +33,12 @@ export default function RootLayout({
      <Providers>
       <SessionProvider>
      <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-      {children}
-      <Toaster position='top-center' reverseOrder={false}/>
-      </ThemeProvider>
-      <Custom>
+     <Custom>
         {children}
       </Custom>
+      <Toaster position='top-center' reverseOrder={false}/>
+      </ThemeProvider>
+     
       </SessionProvider>
      </Providers>
       </body>
