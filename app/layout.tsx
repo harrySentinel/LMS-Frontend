@@ -8,7 +8,7 @@ import { Providers } from './Provider';
 import {SessionProvider } from 'next-auth/react';
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Loader from "./components/Loader/Loader"
-
+import { useEffect, useState } from "react";
 
 const poppins = Poppins ({
   subsets: ["latin"],
@@ -49,6 +49,16 @@ export default function RootLayout({
 
 const Custom: React.FC<{children: React.ReactNode}> = ({children}) => {
   const {isLoading} = useLoadUserQuery({});
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);  // This ensures the component is only loaded on the client
+  }, []);
+
+  if (!isClient) {
+    return null;  // Do not render anything until it's mounted on the client
+  }
   return (
     <>
     {
