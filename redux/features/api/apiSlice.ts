@@ -4,25 +4,22 @@ import { userLoggedIn} from "../auth/authSlice"
 export const apiSlice = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
-<<<<<<< HEAD
         baseUrl: process.env.NEXT_PUBLIC_SERVER_URL, 
-=======
-        baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
->>>>>>> aaab15da751de7f2ef1bcb4d7c04e53a5c1bfe60
+        credentials: "include",
     }),
     endpoints: (builder) => ({
         refreshToken: builder.query({
             query: (data)=> ({
                 url:"refresh",
                 method:"GET",
-                credentials:"include" as const,
+                
             })
         }),
         loadUser: builder.query({
             query: (data) => ({
                 url: "me", 
                 method: "GET",
-                credentials: "include" as const,
+             
             }),
             async onQueryStarted(arg,{queryFulfilled, dispatch}){
                 try{
@@ -34,7 +31,7 @@ export const apiSlice = createApi({
                         })
                     );
                 } catch (error:any){
-                    console.log(error);
+                    console.log("error fetching user:", error);
 
                 }
             }

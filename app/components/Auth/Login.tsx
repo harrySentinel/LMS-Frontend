@@ -87,13 +87,13 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
           />
           {!show ? (
             <AiOutlineEyeInvisible
-              className="absolute bottom-3 right-2 z-10 cursor-pointer"
+              className="absolute bottom-3 right-2 z-1 cursor-pointer"
               size={20}
               onClick={() => setShow(true)}
             />
           ) : (
             <AiOutlineEye
-              className="absolute bottom-3 right-2 z-10 cursor-pointer"
+              className="absolute bottom-3 right-2 z-1 cursor-pointer"
               size={20}
               onClick={() => setShow(false)}
             />
@@ -103,7 +103,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
           )}
         </div>
         <div className="w-full mt-5">
-          <input type="submit" value="login" className={`${styles.button}`} />
+          <input type="submit" value="Login" className={`${styles.button}`} />
         </div>
         <br />
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">

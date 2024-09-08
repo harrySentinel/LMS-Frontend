@@ -6,7 +6,7 @@ type Props = {
     setOpen: (open: boolean) => void;
     activeItem: any;
     component: any;
-    setRoute ?: (route: string) => void;
+    setRoute?: (route: string) => void;
 }
 
 const CustomModal: FC<Props> = ({open,setOpen,setRoute,component:Component}) => {
