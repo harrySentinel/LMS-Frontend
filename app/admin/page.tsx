@@ -27,3 +27,5 @@ const page = (props: Props) => {
         </div>
     )
 }
+
+export default page
