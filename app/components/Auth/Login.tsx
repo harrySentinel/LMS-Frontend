@@ -10,45 +10,43 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { styles } from "../../../app/styles/style";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
-import {toast} from "react-hot-toast";
-import {signIn} from "next-auth/react";
+import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 type Props = {
   setRoute: (route: string) => void;
-  setOpen:(open:boolean) => void;
+  setOpen: (open: boolean) => void;
 };
 
 const schema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
     .required("Please enter your email!"),
-  password: Yup.string().required("Please enter your password !").min(6),
+  password: Yup.string().required("Please enter your password!").min(6),
 });
 
-const Login: FC<Props> = ({setRoute, setOpen}) => {
+const Login: FC<Props> = ({ setRoute, setOpen }) => {
   const [show, setShow] = useState(false);
-  const [login,{isSuccess,error}] = useLoginMutation();
+  const [login, { isSuccess, error }] = useLoginMutation();
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schema,
     onSubmit: async ({ email, password }) => {
-      await login({email, password})
+      await login({ email, password });
     },
   });
 
   useEffect(() => {
-    if(isSuccess){
-      toast.success("Login Successfully")
+    if (isSuccess) {
+      toast.success("Login Successfully");
       setOpen(false);
     }
-    if(error){
-      if("data" in error){
-        const errorData = error as any;
-        toast.error(errorData.Data.message);
-      }
+    if (error && "data" in error) {
+      const errorData = error as any;
+      toast.error(errorData.data?.message || "Login failed");
     }
-  }, [isSuccess,error]);
+  }, [isSuccess, error, setOpen]);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
@@ -60,7 +58,7 @@ const Login: FC<Props> = ({setRoute, setOpen}) => {
         </label>
         <input
           type="email"
-          name=""
+          name="email"
           value={values.email}
           onChange={handleChange}
           id="email"
@@ -73,7 +71,7 @@ const Login: FC<Props> = ({setRoute, setOpen}) => {
           <span className="text-red-500 pt-2 block">{errors.email}</span>
         )}
         <div className="w-full mt-5 relative mb-1">
-          <label className={`${styles.label}`} htmlFor="email">
+          <label className={`${styles.label}`} htmlFor="password">
             Enter Your Password
           </label>
           <input
@@ -89,15 +87,15 @@ const Login: FC<Props> = ({setRoute, setOpen}) => {
           />
           {!show ? (
             <AiOutlineEyeInvisible
-              className="absolute bottom-3 right-2 z-1 cursor-pointer"
+              className="absolute bottom-3 right-2 z-10 cursor-pointer"
               size={20}
               onClick={() => setShow(true)}
             />
           ) : (
             <AiOutlineEye
-              className="absolute bottom-3 right-2 z-1 cursor-pointer"
+              className="absolute bottom-3 right-2 z-10 cursor-pointer"
               size={20}
-              onClick={() => setShow(true)}
+              onClick={() => setShow(false)}
             />
           )}
           {errors.password && touched.password && (
@@ -105,30 +103,31 @@ const Login: FC<Props> = ({setRoute, setOpen}) => {
           )}
         </div>
         <div className="w-full mt-5">
-            <input
-             type="submit"
-             value="login"
-             className= {`${styles.button}`}
-             />
+          <input type="submit" value="login" className={`${styles.button}`} />
         </div>
         <br />
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
-            or Join With
+          or Join With
         </h5>
         <div className="flex items-center justify-center my-3">
-        <FcGoogle size={30} className = "cursor-pointer mr-2"
-        onClick={() => signIn("google")}
-        />
-           <AiFillGithub size={30} className="cursor-pointer ml-2" onClick={() => signIn("github")} />
+          <FcGoogle
+            size={30}
+            className="cursor-pointer mr-2"
+            onClick={() => signIn("google")}
+          />
+          <AiFillGithub
+            size={30}
+            className="cursor-pointer ml-2"
+            onClick={() => signIn("github")}
+          />
         </div>
         <h5 className="text-center pt-4 font-Poppins text-[14px]">
           Not have any account?{" "}
           <span
-          className="text-[#2190ff] pl-1 cursor-pointer"
-          onClick={() => setRoute("Sign-Up")}
+            className="text-[#2190ff] pl-1 cursor-pointer"
+            onClick={() => setRoute("Sign-Up")}
           >
             Sign up
-
           </span>
         </h5>
       </form>
