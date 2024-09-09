@@ -4,24 +4,21 @@ import { userLoggedIn} from "../auth/authSlice"
 export const apiSlice = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_SERVER_URL, 
-<<<<<<< HEAD
-        credentials: "include",
-=======
->>>>>>> c925b8e29415a342191b99272c2b08c53233e103
+        baseUrl: process.env.NEXT_PUBLIC_SERVER_URL
     }),
     endpoints: (builder) => ({
         refreshToken: builder.query({
             query: (data)=> ({
                 url:"refresh",
                 method:"GET",
-                
+                credentials: "include" as const,    
             })
         }),
         loadUser: builder.query({
             query: (data) => ({
                 url: "me", 
                 method: "GET",
+                credentials: "include" as const,
              
             }),
             async onQueryStarted(arg,{queryFulfilled, dispatch}){
