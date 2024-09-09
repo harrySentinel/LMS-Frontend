@@ -90,7 +90,7 @@ const CourseInformation:FC<Props> =({courseInfo, setCourseInfo,active,setActive}
             className = {`${styles.input} !h-min !py-2`}
             value = {courseInfo.description}
             onChange={(e: any) =>
-                setCourseInfo({...courseInfo, decsription: e.target.value})
+                setCourseInfo({...courseInfo, description: e.target.value})
             }
             ></textarea>
            </div>
@@ -122,7 +122,7 @@ const CourseInformation:FC<Props> =({courseInfo, setCourseInfo,active,setActive}
             <input
             type="number"
             name=""
-            required
+           
             value={courseInfo.estimatedPrice}
             onChange={(e: any) =>
                 setCourseInfo({...courseInfo, estimatedPrice: e.target.value})
