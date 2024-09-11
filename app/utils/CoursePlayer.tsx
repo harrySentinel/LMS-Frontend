@@ -1,40 +1,28 @@
-
-
-
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 type VideoPlayerProps = {
   videoId: string; // Cloudinary public ID of the video
+  title?: string;  // Optional title prop
 };
 
-const CoursePlayer: React.FC<VideoPlayerProps> = ({ videoId }) => {
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+const CoursePlayer: React.FC<VideoPlayerProps> = ({ videoId, title }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Call API to get Cloudinary video URL
-    const fetchVideoUrl = async () => {
-      try {
-        const response = await axios.post('/upload', { videoId });
-        setVideoUrl(response.data.videoUrl);
-      } catch (err) {
-        setError('Failed to load video');
-      }
-    };
-
-    if (videoId) {
-      fetchVideoUrl();
+    if (!videoId) {
+      setError('No video ID provided');
     }
   }, [videoId]);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
-  const cloudinaryUrl = ` https://res.cloudinary.com/${process.env.CLOUD_NAME}/video/upload/v1726063270/${videoId}`;
-  // https://res.cloudinary.com/${process.env.CLOUD_NAME}/video/upload/v1726063270/${videoId}
+
+  const cloudinaryUrl = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/video/upload/v1726063270/${videoId}`;
+
   return (
     <div>
+      {title && <h2>{title}</h2>} {/* Render the title if provided */}
       <iframe
         src={cloudinaryUrl}
         width="640"
@@ -46,10 +34,4 @@ const CoursePlayer: React.FC<VideoPlayerProps> = ({ videoId }) => {
   );
 };
 
-
 export default CoursePlayer;
-
-
-
-
-

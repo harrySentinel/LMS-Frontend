@@ -234,15 +234,7 @@ const CourseInformation:FC<Props> =({courseInfo, setCourseInfo,active,setActive}
             <br />
             <br />
         </form>
-        <iframe
-  src="https://player.cloudinary.com/embed/?public_id=samples%2Fcld-sample-video&cloud_name=dtshhrbvj&player[showLogo]=false"
-  width="640"
-  height="360"
-  allow="autoplay; fullscreen; encrypted-media;"
-  undefined
-  allowfullscreen
-  frameborder="0"
-></iframe>
+       
          </div>
   )
 }
