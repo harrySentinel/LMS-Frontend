@@ -35,7 +35,7 @@ const CoursePreview: FC<Props> = ({
       <div className="w-full relative">
         <div className="w-full mt-10">
           <CoursePlayer
-            videoId="videoplayback_1_bwocvs" //{courseData?.demoUrl} // Use demoId to match with CoursePlayer
+            videoId= {courseData?.demoUrl} // Use demoId to match with CoursePlayer "videoplayback_1_bwocvs"
           />
         </div>
         <div className="flex items-center">
