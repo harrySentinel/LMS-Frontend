@@ -10,7 +10,15 @@ export const courseApi = apiSlice.injectEndpoints({
         credentials: "include" as const, // Ensures cookies are included in the request
       }),
     }),
+    getAllCourse: builder.query({
+        query: () => ({
+          url: "get-courses",
+          method: "GET",
+          
+          credentials: "include" as const, // Ensures cookies are included in the request
+        }),
+      }),
   }),
 });
 
-export const { useCreateCourseMutation } = courseApi;
+export const { useCreateCourseMutation , useGetAllCourseQuery } = courseApi;
