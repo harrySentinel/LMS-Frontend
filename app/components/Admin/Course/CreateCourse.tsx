@@ -10,7 +10,7 @@ import CoursePreview from "./CoursePreview";
 type Props = {};
 
 const CreateCourse = (props: Props) => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(3);
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
