@@ -72,10 +72,10 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "name", headerName: "Name", flex: 1 },
-    { field: "email", headerName: "Email", flex: 0.5 },
-    { field: "role", headerName: "Role", flex: 0.5 },
-    { field: "courses", headerName: "Purchased Courses", flex: 0.5 },
+    { field: "name", headerName: "Name", flex: 0.5 },
+    { field: "email", headerName: "Email", flex: 0.8 },
+    { field: "role", headerName: "Role", flex: 0.3 },
+    { field: "courses", headerName: "Purchased Courses", flex: 0.2 },
     { field: "created_at", headerName: "Joined At", flex: 0.5 },
     {
       field: "delete",
@@ -224,7 +224,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                 color: theme === "dark" ? "#fff" : "#000",
               },
               "& .MuiDataGrid-columnHeaders": {
-                color: theme === "dark" ? "#fff" : "#000",
+                color: theme === "dark" ? "#000" : "#000",
                 borderBottom: "none",
                 backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
               },
