@@ -1,19 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { useTheme } from "next-themes";
-import { useGetAllCourseQuery } from "@/redux/features/courses/courseApi";
+import { useDeleteCourseMutation, useGetAllCourseQuery } from "@/redux/features/courses/courseApi";
 import Loader from "../../Loader/Loader";
 import { format } from "timeago.js";
+import toast from "react-hot-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 type Props = {};
 
 const AllCourses = (props: Props) => {
   const { theme, setTheme } = useTheme();
+  const [courseId, setCourseId] = useState("");
+  const [deleteCourse, { isSuccess, error }] = useDeleteCourseMutation();
+  const { isLoading, data, refetch } = useGetAllCourseQuery({}, { refetchOnMountOrArgChange: true });
+  useEffect(() => {
+    if (isSuccess) {
+      refetch();
+      toast.success("Course deleted successfully");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.Message);
+      }
+    }
+    
+  }, [ isSuccess,error]);
 
-  const { isLoading, data, error } = useGetAllCourseQuery({});
-
+   // Handling user deletion
+   const handleDeleteUser = async (id: string) => {
+    await deleteCourse(id);
+  };
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title", headerName: "Course Title", flex: 1 },
@@ -27,12 +54,23 @@ const AllCourses = (props: Props) => {
       renderCell: (params: any) => {
         return (
           <>
-            <Button>
-              <AiOutlineDelete
-                className="dark:text-white text-black"
-                size={20}
-              />
-            </Button>
+            <Dialog>
+  <DialogTrigger> <AiOutlineDelete className="dark:text-white text-black" size={20} /></DialogTrigger>
+  <DialogContent className="dark:bg-[#3e4396]  dark:text-white text-black">
+    <DialogHeader>
+      <DialogTitle className="mb-3 ">Are you absolutely sure?</DialogTitle>
+      <DialogDescription className="text-white">
+        This action cannot be undone. This will permanently delete this course
+        and remove this course from our servers.
+        <br/>
+        <br/>
+        <Button onClick={() => handleDeleteUser(params.row.id)} className=" bg-[#8b0000] text-white">
+         Confirm
+         </Button>
+      </DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>
           </>
         );
       },
