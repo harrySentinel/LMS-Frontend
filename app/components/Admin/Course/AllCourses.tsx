@@ -8,6 +8,7 @@ import { useDeleteCourseMutation, useGetAllCourseQuery } from "@/redux/features/
 import Loader from "../../Loader/Loader";
 import { format } from "timeago.js";
 import toast from "react-hot-toast";
+import Link from 'next/link';
 import {
   Dialog,
   DialogContent,
@@ -82,9 +83,11 @@ const AllCourses = (props: Props) => {
       renderCell: (params: any) => {
         return (
           <>
-            <Button>
+            <Link href={`/admin/edit-course/${params.row.id}`}>
               <FiEdit2 className="dark:text-white text-black" size={20} />
-            </Button>
+            </Link>
+
+           
           </>
         );
       },

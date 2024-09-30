@@ -5,14 +5,23 @@ import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 import CoursePreview from "./CoursePreview";
-import { useCreateCourseMutation } from "@/redux/features/courses/courseApi";
+import {  useEditCourseMutation, useGetAllCourseQuery } from "@/redux/features/courses/courseApi";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
+import {FC} from "react";
 
-type Props = {};
+type Props = {
+    id: string;
+};
 
-const CreateCourse = (props: Props) => {
-  const [createCourse, { isLoading, isSuccess, error }] = useCreateCourseMutation();
+const EditCourse:FC<Props>= ({id}) => {
+
+
+ const [editCourse,{isSuccess,error}] = useEditCourseMutation();
+  const { data, refetch } = useGetAllCourseQuery(
+    {}, { refetchOnMountOrArgChange: true }
+);
+const editCourseData = data && data.courses.find((i:any) => i._id === id);
 
   useEffect(() => {
     if (isSuccess) {
@@ -24,9 +33,28 @@ const CreateCourse = (props: Props) => {
       const errorMessage = error as any;
       toast.error(errorMessage.data.message);
     }
-  }, [isLoading, isSuccess, error]);
+  }, [isSuccess, error]);
 
   const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if(editCourseData){
+        setCourseInfo({
+            name: editCourseData.name,
+            description: editCourseData.description,
+            price: editCourseData.price,
+            estimatedPrice: editCourseData.estimatedPrice,
+            tags: editCourseData.tags,
+            level: editCourseData.level,
+            demoUrl: editCourseData.demoUrl,
+            thumbnail: editCourseData?.thumbnail?.url,
+        })
+        setBenefits(editCourseData.benefits);
+        setPrerequisites(editCourseData.prerequisites);
+        setCourseContentData(editCourseData.courseData);
+    }
+  }, [editCourseData]);
+
   const [courseInfo, setCourseInfo] = useState({
     name: "", // Required field
     description: "", // Required field
@@ -57,6 +85,8 @@ const CreateCourse = (props: Props) => {
   ]);
 
   const [courseData, setCourseData] = useState<any>(null); // State to store course data
+
+   console.log(courseData);
 
   // Function to prepare and validate course data
   const handleSubmit = useCallback(() => {
@@ -95,7 +125,7 @@ const CreateCourse = (props: Props) => {
       totalVideos: courseContentData.length,
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
-      courseData: formattedCourseContentData,
+      courseContent: formattedCourseContentData,
     };
 
     setCourseData(data); // Set the course data to state
@@ -110,13 +140,20 @@ const CreateCourse = (props: Props) => {
   }, [active, handleSubmit]);
 
   // Function to handle course creation
-  const handleCourseCreate = async () => {
-    if (!courseData) return; // Stop if validation fails
+  // const handleCourseCreate = async () => {
+  //   if (!courseData) return; // Stop if validation fails
 
-    if (!isLoading) {
-      await createCourse(courseData);
-    }
+  // };
+
+  const handleCourseCreate = async (e: any) => { 
+   
+  
+    const data = courseData; // Assign courseData to a variable
+    await editCourse({id:editCourseData?._id,data});
+  
+ 
   };
+  
 
   return (
     <div className="w-full flex min-h-screen">
@@ -154,7 +191,7 @@ const CreateCourse = (props: Props) => {
             setActive={setActive}
             courseData={courseData} // Use the prepared courseData state for the preview
             handleCourseCreate={handleCourseCreate}
-            isEdit = {true}
+            isEdit={true}
           />
         )}
       </div>
@@ -165,4 +202,4 @@ const CreateCourse = (props: Props) => {
   );
 };
 
-export default CreateCourse;
+export default EditCourse;
