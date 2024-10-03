@@ -238,7 +238,7 @@ const Item: FC<itemProps> = ({title, to, icon, selected, setSelected}) => {
                 />
                  <Item
                 title = "FAQ"
-                to="/faq"
+                to="/admin/faq"
                 icon={<QuizIcon />}
                 selected={selected}
                 setSelected={setSelected}
