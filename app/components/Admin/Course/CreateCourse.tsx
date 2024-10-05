@@ -8,11 +8,13 @@ import CoursePreview from "./CoursePreview";
 import { useCreateCourseMutation } from "@/redux/features/courses/courseApi";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
+import { Category } from "@mui/icons-material";
 
 type Props = {};
 
 const CreateCourse = (props: Props) => {
-  const [createCourse, { isLoading, isSuccess, error }] = useCreateCourseMutation();
+  const [createCourse, { isLoading, isSuccess, error }] =
+    useCreateCourseMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -34,6 +36,7 @@ const CreateCourse = (props: Props) => {
     estimatedPrice: "",
     tags: "", // Required field
     level: "", // Required field
+    categories: "",
     demoUrl: "",
     thumbnail: "",
   });
@@ -60,17 +63,32 @@ const CreateCourse = (props: Props) => {
 
   // Function to prepare and validate course data
   const handleSubmit = useCallback(() => {
-    const { name, description, price, estimatedPrice, tags, level, thumbnail, demoUrl } = courseInfo;
+    const {
+      name,
+      description,
+      price,
+      estimatedPrice,
+      tags,
+      level,
+      thumbnail,
+      demoUrl,
+    } = courseInfo;
 
     // Validate required fields
     if (!name || !description || !price || !tags || !level) {
-      toast.error("Please fill in all required fields: name, description, price, tags, and level.");
+      toast.error(
+        "Please fill in all required fields: name, description, price, tags, and level."
+      );
       return null; // Exit if validation fails
     }
 
     // Prepare benefits, prerequisites, and course content
-    const formattedBenefits = benefits.map((benefit) => ({ title: benefit.title }));
-    const formattedPrerequisites = prerequisites.map((prerequisite) => ({ title: prerequisite.title }));
+    const formattedBenefits = benefits.map((benefit) => ({
+      title: benefit.title,
+    }));
+    const formattedPrerequisites = prerequisites.map((prerequisite) => ({
+      title: prerequisite.title,
+    }));
     const formattedCourseContentData = courseContentData.map((content) => ({
       videoUrl: content.videoUrl,
       title: content.title,
@@ -92,6 +110,7 @@ const CreateCourse = (props: Props) => {
       thumbnail,
       level,
       demoUrl,
+      Category,
       totalVideos: courseContentData.length,
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
@@ -101,6 +120,7 @@ const CreateCourse = (props: Props) => {
     setCourseData(data); // Set the course data to state
     return data;
   }, [courseInfo, benefits, prerequisites, courseContentData]);
+
 
   // Use useEffect to automatically prepare courseData when the user reaches the preview stage
   useEffect(() => {
@@ -154,7 +174,7 @@ const CreateCourse = (props: Props) => {
             setActive={setActive}
             courseData={courseData} // Use the prepared courseData state for the preview
             handleCourseCreate={handleCourseCreate}
-            isEdit = {true}
+            isEdit={true}
           />
         )}
       </div>
