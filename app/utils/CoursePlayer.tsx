@@ -21,16 +21,18 @@ const CoursePlayer: React.FC<VideoPlayerProps> = ({ videoId, title }) => {
   const cloudinaryUrl = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/video/upload/v1726063270/${videoId}`;
 
   return (
-    <div style={{ position:"relative"}}>
-      {title && <h2>{title}</h2>} {/* Render the title if provided */}
-      <iframe
-        src={cloudinaryUrl}
-        width="640"
-        height="360"
-        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-        title="Cloudinary Video Player"
-      ></iframe>
-    </div>
+    <div style={{ position: "relative" }}>
+  {title && <h2>{title}</h2>} {/* Render the title if provided */}
+  <iframe
+    src={cloudinaryUrl}
+    width="320"  // Adjusted width to make it smaller
+    height="180" // Adjusted height accordingly
+    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+    title="Cloudinary Video Player"
+    style={{ maxWidth: "100%", borderRadius: "8px" }} // Optional: Adding a responsive style and rounded corners
+  ></iframe>
+</div>
+
   );
 };
 
