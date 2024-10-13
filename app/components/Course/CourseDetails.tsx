@@ -3,7 +3,7 @@ import CoursePlayer from '@/app/utils/CoursePlayer';
 import Ratings from '@/app/utils/Ratings';
 import { Rating } from '@mui/material';
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 import { IoCheckmarkDoneOutline } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
 import { format } from 'timeago.js';
@@ -15,6 +15,7 @@ type Props = {
 
 const CourseDetails = ({ data }: Props) => {
     const { user } = useSelector((state: any) => state.auth);
+    const [open, setOpen] = useState(false);
     const discountPercentenge =
         ((data?.estimatedPrice - data.price) /
             data?.estimatedPrice) *
@@ -26,7 +27,7 @@ const CourseDetails = ({ data }: Props) => {
         user && user?.courses?.find((item: any) => item._id === data._id);
 
     const handleOrder = (e: any) => {
-        console.log('ggg');
+        setOpen(true);
     }
 
     return (
@@ -187,6 +188,7 @@ const CourseDetails = ({ data }: Props) => {
 
                 </div>
             </div>
+            
         </div>
     )
 }
