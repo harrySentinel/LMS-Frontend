@@ -1,5 +1,6 @@
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
 import { useCreateCourseMutation } from '@/redux/features/courses/courseApi';
+import { Button } from '@mui/material';
 import { LinkAuthenticationElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from 'react'
@@ -62,11 +63,11 @@ const CheckOutForm = ({setOpen, data}:Props) => {
       // options={{defaultValues: {email: 'foo@bar.com'}}}
       />
     <PaymentElement id="payment-element" />
-    <button disabled={isLoading || !stripe || !elements} id="submit">
+    <Button disabled={isLoading || !stripe || !elements} id="submit">
       <span id="button-text">
         {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
       </span>
-    </button>
+    </Button>
     {/* Show any error or success messages */}
     {message && <div id="payment-message">{message}</div>}
   </form>
