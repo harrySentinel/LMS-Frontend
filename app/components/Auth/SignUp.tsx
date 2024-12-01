@@ -61,7 +61,7 @@ const Signup: FC<Props> = ({ setRoute }) => {
     <div className="w-full h-screen flex items-center justify-center">
       <div className="bg-transparent w-full max-w-md p-6">
         <h1 className={`${styles.title} text-center mb-6`}>
-          Join ELearning
+          Join Great Sage
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

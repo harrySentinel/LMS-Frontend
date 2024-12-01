@@ -123,7 +123,7 @@ const Item: FC<itemProps> = ({title, to, icon, selected, setSelected}) => {
                     >
                         <Link href="/">
                         <h3 className="text-[25px] font-Poppins uppercase dark:text-white text-black">
-                            ELearning
+                            Great Sage
                         </h3>
                         </Link>
                         <IconButton onClick={() => setIsCollapsed(!isCollapsed)} className="inline-block">

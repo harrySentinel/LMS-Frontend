@@ -12,8 +12,8 @@ const page = ({params}:any) => {
   return (
     <div>
         <Heading
-        title ="Elearning - Admin"
-        description="Elearning is a platform for students to learn and get help from teachers"
+        title ="Great Sage - Admin"
+        description="Great Sage is a platform for students to learn and get help from teachers"
         keywords="Programming , MERN, Redux, Machine Learning"
         />
         <div className="flex">

@@ -14,8 +14,8 @@ const page = (props: Props) => {
         <div>
         <AdminProtected>
         <Heading
-         title="ELearning - Admin"
-         description="ELearning is a platform for students to learn and get help from teachers"
+         title="Great Sage - Admin"
+         description="Great Sage is a platform for students to learn and get help from teachers"
          keywords="Programming, MERN, Redux, Machine Learning"
          />
          <div  className= "flex h-[200vh]">

@@ -51,7 +51,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="w-full">
-      <h1 className={`${styles.title}`}>Login With ELearning</h1>
+      <h1 className={`${styles.title}`}>Login With Great Sage</h1>
       <form onSubmit={handleSubmit}>
         <label className={`${styles.label}`} htmlFor="email">
           Enter Your Email

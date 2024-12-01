@@ -46,7 +46,7 @@ const CourseDetailsPage = ({ id }: Props) => {
                 ) : (
                     <div>
                         <Heading
-                            title={ "- ELearning"}
+                            title={ "- Great Sage"}
                             description={
                                 "The Great Sage is a learning community which is developed by RHV for helping students"
                             }
