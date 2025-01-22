@@ -42,7 +42,7 @@ const CheckOutForm = ({setOpen, data}:Props) => {
     useEffect(()=>{
         if(orderData){
             setLoadUser(true);
-            redirect('/course-access/${data._id}')
+            redirect(`/course-access/${data._id}`)
         }
         if(error){
             if("data" in error){
@@ -53,19 +53,11 @@ const CheckOutForm = ({setOpen, data}:Props) => {
     },[orderData,error])
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-    <LinkAuthenticationElement id="link-authentication-element"
-      // Access the email value like so:
-      // onChange={(event) => {
-      //  setEmail(event.value.email);
-      // }}
-      //
-      // Prefill the email field like so:
-      // options={{defaultValues: {email: 'foo@bar.com'}}}
-      />
+    <LinkAuthenticationElement id="link-authentication-element"/>
     <PaymentElement id="payment-element" />
-    <Button disabled={isLoading || !stripe || !elements} id="submit">
+    <Button type="submit" disabled={isLoading || !stripe || !elements} id="submit">
       <span id="button-text">
-        {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+        {isLoading ? "Paying...": "Pay now"}
       </span>
     </Button>
     {/* Show any error or success messages */}
