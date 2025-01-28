@@ -1,5 +1,6 @@
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
-import { useCreateCourseMutation } from '@/redux/features/courses/courseApi';
+
+import { useCreateOrderMutation } from '@/redux/features/orders/orderApi';
 import { Button } from '@mui/material';
 import { LinkAuthenticationElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { redirect } from "next/navigation";
@@ -15,7 +16,7 @@ const CheckOutForm = ({setOpen, data}:Props) => {
     const stripe = useStripe();
     const elements = useElements();
     const [message,setMessage] = useState<any>("");
-    const [createOrder,{data:orderData,error}] = useCreateCourseMutation();
+    const [createOrder,{data:orderData,error}] = useCreateOrderMutation();
     const [loadUser,setLoadUser] = useState(false);
     const {} = useLoadUserQuery({skip:loadUser?false:true})
     const [isLoading,setIsLoading] = useState(false)
