@@ -9,7 +9,8 @@ import { useSelector } from 'react-redux';
 import { format } from 'timeago.js';
 import CourseContentList from "../Course/CourseContentList";
 import {Elements} from "@stripe/react-stripe-js";
-import CheckOutForm from "../Payment/CheckOutForm.tsx" 
+import CheckOutForm from "../Payment/CheckOutForm" 
+import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
 type Props = {
     data: any;
     clientSecret:string;
@@ -17,7 +18,8 @@ type Props = {
 }
 
 const CourseDetails = ({ data ,stripePromise, clientSecret }: Props) => {
-    const { user } = useSelector((state: any) => state.auth);
+   const {data:userdata} = useLoadUserQuery(undefined,{});
+   const user = userdata?.user;
     const [open, setOpen] = useState(false);
     
     const discountPercentenge =
