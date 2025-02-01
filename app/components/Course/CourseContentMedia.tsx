@@ -16,7 +16,7 @@ const CourseContentMedia = ({data,id,activeVideo,setActiveVideo}: Props) => {
     <div className='w-[95%] 800px:w-[86%] py-4 m-auto'>
         <CoursePlayer
         title = {data[activeVideo]?.title}
-        videoUrl = {data[activeVideo]?.videoUrl}
+        videoId = {data[activeVideo]?.videoUrl}
         />
     </div>
   )
