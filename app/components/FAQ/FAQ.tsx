@@ -1,4 +1,4 @@
-import { styles } from '@/app/styles/style';
+import {styles} from '@/app/styles/style';
 import { useGetHeroDataQuery } from '@/redux/features/layout/layoutApi';
 import React, { useEffect, useState } from 'react'
 import { HiMinus, HiPlus } from 'react-icons/hi';

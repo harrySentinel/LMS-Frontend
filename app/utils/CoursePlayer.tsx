@@ -21,7 +21,7 @@ const CoursePlayer: React.FC<VideoPlayerProps> = ({ videoId, title }) => {
   const cloudinaryUrl = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUD_NAME}/video/upload/v1726063270/${videoId}`;
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative"}}>
   {title && <h2>{title}</h2>} {/* Render the title if provided */}
   <iframe
     src={cloudinaryUrl}
