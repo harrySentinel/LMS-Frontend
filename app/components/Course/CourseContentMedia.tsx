@@ -382,7 +382,7 @@ const CommentItem = ({
                                     </div>
                                     <div className='pl-3'>
                                         <div className='flex items-center'>
-                                        <h5 className='text-[20px]'>{item.user.name}</h5> <VscVerifiedFilled className='text-[#50c750] ml-2 text-[20px]' />
+                                        <h5 className='text-[20px]'>{item.user.name}</h5> {item.user.role === "admin" && <VscVerifiedFilled className='text-[#0095F6] ml-2 text-[20px]' />}
                                         </div>
                                         <p>{item.answer}</p>
                                         <small className='text-[#ffffff83]'>
