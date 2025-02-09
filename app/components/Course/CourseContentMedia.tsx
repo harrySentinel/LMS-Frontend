@@ -4,7 +4,7 @@ import React from 'react'
 import { AiFillStar, AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineStar } from 'react-icons/ai';
 import { useState } from 'react'
 import { comment } from 'postcss';
-
+import Image from 'next/image'
 
 
 type Props = {
@@ -109,7 +109,16 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user }: Pro
                 activeBar === 2 && (
                     <>
                         <div className='flex w-full'>
-                            <p> Q & A Section</p>
+                        <Image
+                           src = {
+                            user.avatar ? user.avatar.url
+                            : "https://res.cloudinary.com/dtshhrbvj/image/upload/v1739082665/IMG-20250209-WA0000_kq4nke.jpg"
+                           }
+                           width={50}
+                           height={50}
+                           alt=""
+                           className='w-[50px] h-[50px] rounded-full object-cover'
+                           />
                             <textarea
                                 name=""
                                 value={question}
@@ -141,7 +150,16 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user }: Pro
                         { !isReviewExists && (
                             <>
                             <div className='flex w-full'>
-                            <p>Review Section</p>
+                           <Image
+                           src = {
+                            user.avatar ? user.avatar.url
+                            : "https://res.cloudinary.com/dtshhrbvj/image/upload/v1739082665/IMG-20250209-WA0000_kq4nke.jpg"
+                           }
+                           width={50}
+                           height={50}
+                           alt=""
+                           className='w-[50px] h-[50px] rounded-full object-cover'
+                           />
                      
                              <div className='w-full'>
                                 <h5 className='pl-3 text-[20px] font-[500] dark:text-white text-black'>
