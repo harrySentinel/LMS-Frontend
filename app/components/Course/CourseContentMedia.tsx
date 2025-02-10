@@ -35,7 +35,7 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user, refet
     const [answer, setAnswer] = useState("");
     const [questionId, setQuestionId] = useState("")
     const [addNewQuestion, { isSuccess, error, isLoading: questionCreationLoading }] = useAddNewQuestionMutation();
-    const [addAnswerInQuestion, {isSuccess:answerSuccess,error:answerError, isLoading:answerCreationLoading}] = useAddAnswerInQuestionMutation();
+    const [addAnswerInQuestion, { isSuccess: answerSuccess, error: answerError, isLoading: answerCreationLoading }] = useAddAnswerInQuestionMutation();
 
     const isReviewExists = data?.reviews?.find(
         (item: any) => item.user._id === user._id
@@ -56,7 +56,7 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user, refet
             refetch();
             toast.success("Question added successfully");
         }
-        if (answerSuccess){
+        if (answerSuccess) {
             setAnswer("");
             refetch();
             toast.success("Answer added successfully")
@@ -67,8 +67,8 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user, refet
                 toast.error(errorMessage.data.message);
             }
         }
-        if (answerError){
-            if("data" in answerError){
+        if (answerError) {
+            if ("data" in answerError) {
                 const errorMessage = error as any;
                 toast.error(errorMessage.data.message);
             }
@@ -76,10 +76,10 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user, refet
     }, [isSuccess, error, answerSuccess, answerError])
 
     const handleAnswerSubmit = () => {
-        addAnswerInQuestion({answer, courseId: id, contentId: data[activeVideo]._id, questionId:questionId})
-    }; 
+        addAnswerInQuestion({ answer, courseId: id, contentId: data[activeVideo]._id, questionId: questionId })
+    };
 
-    
+
 
     return (
         <div className='w-[95%] 800px:w-[86%] py-4 m-auto'>
@@ -300,7 +300,7 @@ const CommentReply = ({
                             item={item}
                             index={index}
                             answer={answer}
-                            setAnswer = {setAnswer}
+                            setAnswer={setAnswer}
                             setQuestionId={setQuestionId}
                             handleAnswerSubmit={handleAnswerSubmit}
                             answerCreationLoading={answerCreationLoading}
@@ -347,10 +347,9 @@ const CommentItem = ({
                 <div className='w-full flex'>
                     <span
                         className='800px:pl-16 text-[#000000b8] dark:text-[#ffffff83] cursor-pointer mr-2'
-                        onClick={() => 
-                        {
+                        onClick={() => {
                             setreplyActive(!replyActive),
-                            setQuestionId(item._id)
+                                setQuestionId(item._id)
                         }
                         }
                     >
@@ -382,7 +381,7 @@ const CommentItem = ({
                                     </div>
                                     <div className='pl-3'>
                                         <div className='flex items-center'>
-                                        <h5 className='text-[20px]'>{item.user.name}</h5> {item.user.role === "admin" && <VscVerifiedFilled className='text-[#0095F6] ml-2 text-[20px]' />}
+                                            <h5 className='text-[20px]'>{item.user.name}</h5> {item.user.role === "admin" && <VscVerifiedFilled className='text-[#0095F6] ml-2 text-[20px]' />}
                                         </div>
                                         <p>{item.answer}</p>
                                         <small className='text-[#ffffff83]'>
@@ -398,13 +397,13 @@ const CommentItem = ({
                                         placeholder="Enter your answer..."
                                         value={answer}
                                         onChange={(e: any) => setAnswer(e.target.value)}
-                                        className={`block 800px:ml-12 mt-2 outline-none bg-transparent border-b border-[#00000027] dark:text-white text-black dark:border-[#fff] p-[5px] w-[95%] ${answer=== "" || answerCreationLoading && 'cursor-not-allowed'}`}
+                                        className={`block 800px:ml-12 mt-2 outline-none bg-transparent border-b border-[#00000027] dark:text-white text-black dark:border-[#fff] p-[5px] w-[95%] ${answer === "" || answerCreationLoading && 'cursor-not-allowed'}`}
                                     />
                                     <button
                                         type="submit"
                                         className='absolute right-0 bottom-1'
-                                        onClick={handleAnswerSubmit}
-                                        disabled = {answer === "" || answerCreationLoading}
+                                        onClick={handleAnswerSubmit}                                        
+                                        disabled={answer === "" || answerCreationLoading}
                                     >
                                         Submit
                                     </button>
