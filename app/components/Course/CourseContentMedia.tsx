@@ -102,9 +102,12 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user, refet
             toast.success("Reply added successfully");
         };
         if (replyError) {
-            if ("data" in replyError) {
-                const errorMessage = error as any;
-                toast.error(errorMessage.data.message);
+        
+            if ("data" in replyError && replyError.data && typeof replyError.data === "object") {
+                const errorMessage = replyError as any; // Use replyError instead of error
+                toast.error(errorMessage.data.message || "An unexpected error occurred.");
+            } else {
+                toast.error("An unexpected error occurred while submitting the reply.");
             }
         }
     }, [isSuccess, error, answerSuccess, answerError, reviewSuccess, reviewError, replySuccess, replyError]);

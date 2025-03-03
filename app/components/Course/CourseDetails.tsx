@@ -153,6 +153,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
                                             </div>
 
                                         </div>
+                                        
                                         {
                                             item.commentReplies.map((i: any, index: number) => (
                                                 <div className='w-full flex 800px:ml-16 my-5'>
