@@ -3,7 +3,7 @@ import CoursePlayer from '@/app/utils/CoursePlayer';
 import Ratings from '@/app/utils/Ratings';
 import { Rating } from '@mui/material';
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoCheckmarkDoneOutline, IoCloseOutline } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
 import { format } from 'timeago.js';
@@ -17,12 +17,18 @@ type Props = {
     data: any;
     clientSecret: string;
     stripePromise: any;
+    setRoute:any;
+    setOpen:any;
 }
 
-const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
+const CourseDetails = ({ data, stripePromise, clientSecret, setRoute, setOpen:openAuthModal }: Props) => {
     const { data: userdata } = useLoadUserQuery(undefined, {});
-    const user = userdata?.user;
+    const [user, setUser] = useState<any>();
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        setUser(userdata?.user);
+    }, [userdata]);
 
     const discountPercentenge =
         ((data?.estimatedPrice - data.price) /
@@ -35,7 +41,12 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
         user && user?.courses?.find((item: any) => item._id === data._id);
 
     const handleOrder = (e: any) => {
-        setOpen(true);
+        if(user){
+            setOpen(true);
+        } else{
+            setRoute("Login");
+            openAuthModal(true);
+        }
     }
 
     return (
@@ -54,7 +65,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
                             <h5 className='text-black dark:text-white'>{data.purchased} Students</h5>
                         </div>
                         <br />
-                        <h1 className='text=[25pc] font-Poppins font-[600] text-black dark:text-white'>
+                        <h1 className='text=[25px] font-Poppins font-[600] text-black dark:text-white'>
                             What you will learn from this course?
                         </h1>
                         <div>
