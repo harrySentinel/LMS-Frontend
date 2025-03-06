@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
 import { toast } from 'react-hot-toast';
 import { useLogOutQuery } from '@/redux/features/auth/authApi';
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 
 type Props = {
   open: boolean;
@@ -29,7 +30,7 @@ type Props = {
 const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
-  const {user} = useSelector((state:any)=> state.auth);
+  const {data:userData, isLoading, refetch} = useLoadUserQuery(undefined,{});
   const {data} = useSession();
   const [socialAuth, {isSuccess,error}] = useSocialAuthMutation();
   const [logout, setLogout] =useState(false);
@@ -38,7 +39,8 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   });
 
   useEffect(() => {
-    if(!user){
+    if(!isLoading){
+    if(!userData){
       if(data){
         socialAuth({email:data?.user?.email, name:data?.user?.name,avatar:data.user?.image})
       }
@@ -48,10 +50,11 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
       toast.success("Login Successfully");
     }
     }
-    if(data=== null){
+    if(data === null && !isLoading && !userData){
       setLogout(true);
     }
-  }, [data, user]);
+  }
+  }, [data, userData, isLoading]);
  
 
   if (typeof window !== "undefined") {
@@ -103,10 +106,10 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                 />
               </div>
               {
-                user ? (
+                userData ? (
                   <Link href={"/profile"}>
                   <Image
-                  src={user.avatar ? user.avatar.url : avatar}
+                  src={userData.avatar ? userData.avatar.url : avatar}
                   alt = "User Avatar"
                   width={30}
                   height={30}
@@ -160,6 +163,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
               setRoute = {setRoute}
               activeItem = {activeItem}
               component = {Login}
+              refetch = {refetch}
               />
             )
           }
