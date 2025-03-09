@@ -191,13 +191,6 @@ const Item: FC<itemProps> = ({title, to, icon, selected, setSelected}) => {
                 setSelected={setSelected}
                 />
 
-                <Item
-                title="Invoices"
-                to="/admin/invoices"
-                icon={<ReceiptOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-                />
 
                  <Typography
                 variant="h5"
@@ -281,13 +274,7 @@ const Item: FC<itemProps> = ({title, to, icon, selected, setSelected}) => {
                 selected={selected}
                 setSelected={setSelected}
                 />
-                 <Item
-                title = "Orders Analytics"
-                to="/admin/orders-analytics"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-                />
+                
                  <Item
                 title = "Users Analytics"
                 to="/admin/users-analytics"
@@ -304,13 +291,7 @@ const Item: FC<itemProps> = ({title, to, icon, selected, setSelected}) => {
             
                     {!isCollapsed && "Extras"}
                 </Typography>
-                <Item
-                title = "Settings"
-                to="/admin/settings"
-                icon={<SettingsIcon />}
-                selected={selected}
-                setSelected={setSelected}
-                />
+              
                 <div onClick={logoutHandler}>
                  <Item
                 title = "Logout"
