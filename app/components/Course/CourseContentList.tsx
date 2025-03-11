@@ -14,13 +14,11 @@ const CourseContentList: FC<Props> = (props) => {
         new Set<string>()
     );
 
-
     const videoSections: string[] = [
         ...new Set<string>(props.data?.map((item: any) => item.videoSection)),
     ];
 
     let totalCount: number = 0;
-
 
     const toggleSection = (section: string) => {
         const newVisibleSections = new Set(visibleSections);
@@ -32,14 +30,13 @@ const CourseContentList: FC<Props> = (props) => {
         setVisibleSections(newVisibleSections);
     }
 
-
     return (
         <div className={`mt-[15px] w-full ${!props.isDemo && 'ml-[-30px] sticky top-24 left-0 z-30'}`}>
             {videoSections.map((section: string, sectionIndex: number) => {
                 const isSectionVisible = visibleSections.has(section);
 
                 const sectionVideos: any[] = props.data.filter(
-                    (item: any) => item.visibleSection === section
+                    (item: any) => item.videoSection === section
                 );
                 const sectionVideoCount: number = sectionVideos.length;
                 const sectionVideoLength: number = sectionVideos.reduce(
@@ -56,10 +53,8 @@ const CourseContentList: FC<Props> = (props) => {
                         <div className='w-full flex'>
                             {/* Render video section */}
 
-                            <div className='w-full flex justify-between items-center'
-
-                            >
-                                <h2 className='text-[22px] text-black dark:text-white'></h2>
+                            <div className='w-full flex justify-between items-center'>
+                                <h2 className='text-[22px] text-black dark:text-white'>{section}</h2>
                                 <button className='mr-4 cursor-pointer text-black dark:text-white'
                                     onClick={() => toggleSection(section)}>
 
@@ -72,12 +67,8 @@ const CourseContentList: FC<Props> = (props) => {
                             </div>
                         </div>
                         <h5 className='text-black dark:text-white'>
-                            {sectionVideoCount} Lessons .{" "}
-                            {sectionVideoCount > 60
-                                ? sectionVideoLength
-                                : sectionContentHours.toFixed(2)
-                            }{" "}
-                            {sectionVideoLength > 60 ? "hours" : "minutes"}
+                            {sectionVideoCount} Lessons {" "}
+                           
                         </h5>
                         <br />
                         {isSectionVisible && (
@@ -88,7 +79,7 @@ const CourseContentList: FC<Props> = (props) => {
                                     return (
                                         <div
                                             className={`w-full ${videoIndex === props.activeVideo ? "bg-slate-800" : ""
-                                                }cursor-pointer transition-all p-2`}
+                                                } cursor-pointer transition-all p-2`}
                                             key={item._id}
                                             onClick={() => props.isDemo ? null : props?.setActiveVideo(videoIndex)}
                                         >
@@ -103,13 +94,10 @@ const CourseContentList: FC<Props> = (props) => {
                                                 <h1 className='text-[18px] inline-block break-word text-black dark:text-white'>
                                                     {item.title}
                                                 </h1>
-
                                             </div>
                                             <h5 className='pl-8 text-black dark:text-white'>
-                                                {item.videoLength > 60 ? contentLength.toFixed(2) : item.videoLength}{" "}
-                                                {item.videoLength > 60 ? "hours" : "minutes"}
+                                                
                                             </h5>
-
                                         </div>
                                     );
                                 })}
